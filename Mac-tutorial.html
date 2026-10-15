@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>lolo（Mac 版）源码运行指引</title>
+<style>
+:root{--orange:#e8751f;--orange-soft:#fff3e8;--ink:#2b2622;--muted:#7a7068;--line:#f0e3d6;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+background:#fffaf5;color:var(--ink);line-height:1.75;font-size:16px;padding:0 16px 64px}
+.wrap{max-width:760px;margin:0 auto}
+header{padding:40px 0 24px;text-align:center}
+header .badge{display:inline-block;font-size:13px;color:var(--orange);background:var(--orange-soft);
+border:1px solid var(--line);padding:4px 14px;border-radius:99px;margin-bottom:14px}
+header h1{font-size:26px;font-weight:800;letter-spacing:.5px}
+header p{color:var(--muted);font-size:14px;margin-top:10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 26px;margin:22px 0;
+box-shadow:0 6px 22px rgba(232,117,31,.07)}
+h2{font-size:20px;margin:30px 0 14px;padding-left:12px;border-left:4px solid var(--orange)}
+h3{font-size:17px;margin:22px 0 10px;color:#b65f15}
+h4{font-size:15px;margin:16px 0 8px;color:var(--muted)}
+p{margin:12px 0}
+ul,ol{margin:12px 0;padding-left:24px}
+li{margin:6px 0}
+code{background:#f6efe7;color:#c4541a;padding:2px 7px;border-radius:6px;font-size:14px;
+font-family:"SF Mono",Menlo,Consolas,monospace}
+pre.code{background:#2b2622;color:#f3e9df;padding:16px 18px;border-radius:12px;overflow-x:auto;
+margin:14px 0;font-size:13.5px;line-height:1.6}
+pre.code code{background:none;color:inherit;padding:0}
+blockquote{background:var(--orange-soft);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;
+padding:16px 18px;margin:16px 0;color:#5c4231}
+blockquote p{margin:6px 0}
+blockquote ol,blockquote ul{margin:8px 0}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:#fff;
+border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:var(--orange-soft);color:#9a4f12;font-weight:700}
+hr{border:none;border-top:1px dashed var(--line);margin:28px 0}
+a{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,117,31,.35)}
+a:hover{border-bottom-color:var(--orange)}
+.tip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:14px 0;
+font-size:14.5px;color:#5c4231}
+.footer{text-align:center;color:var(--muted);font-size:13px;margin-top:36px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="badge">🍎 Mac 用户专属</div>
+  <h1>lolo 桌宠 · 源码运行指引</h1>
+  <p>装不了安装包？一行命令自动搞定，或照着下面一步步来</p>
+</header>
+<div class="card">
+<h1>lolo（Mac 版）源码运行指引</h1>
+<blockquote><p>适用情形：Mac 上装不了 <code>.dmg</code>（被系统弹「已阻止恶意软件并移到废纸篓」、Gatekeeper 拦截、<code>xattr</code> 也放不了）时，改用<strong>直接从源码启动</strong>。</p><p><strong>原理</strong>：从终端用 Node 启动 Electron 进程，<strong>不经过 <code>.app</code> 签名检查</strong>，所以不会被 Gatekeeper 拦截，100% 能跑起来。</p></blockquote>
+<hr/>
+<h2>零、一行命令全自动（强烈推荐，先看这个）</h2>
+<p>打开「终端」（<code>Command + 空格</code> → 搜「终端」→ 回车），粘贴下面这一行并回车，剩下的一切由脚本自动完成：</p>
+<pre class="code"><code>curl -sL https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo/main/install-mac.sh | bash</code></pre>
+<p><strong>它会自动做</strong>：检查 Node → 下载源码（走国内反代，不用挂梯子）→ 配置国内镜像 → 只装运行必需的依赖（跳过打包工具，省时间）→ 在桌面生成「启动lolo」图标 → 直接启动 lolo。</p>
+<p><strong>装好以后</strong>：桌面上双击「启动lolo」就能打开，以后再也不用碰终端。</p>
+<blockquote><p>如果提示没装 Node.js，脚本会自动打开下载页面；你装完 Node 后，<strong>再跑一次上面那一行命令</strong>即可。</p><p>想更新到最新版：终端执行 <code>rm -rf ~/lolo/lolo-main</code>，然后重跑那一行安装命令。</p></blockquote>
+<blockquote><p><strong>⚠ 首次打开几乎一定会被系统拦下（这是正常的）</strong>：macOS 会弹「无法验证开发者」。因为 lolo 用的 Electron 没做苹果付费公证，系统只是例行盘问，解决只需一次：</p><ol><li>弹窗点「好」关掉；</li><li>打开「系统设置 → 隐私与安全性 → 安全性」；</li><li>找到 lolo / Electron 被拦截的记录，点右侧<strong>「仍要打开」</strong>；</li><li>重新双击桌面「启动lolo」即可。</li></ol><p>嫌麻烦也可终端执行 <code>sudo spctl --master-disable</code> 一劳永逸（用完可 <code>sudo spctl --master-enable</code> 恢复）。</p></blockquote>
+<p>只有这行命令<strong>走不通</strong>的时候，才需要看下面这些手动步骤。</p>
+<hr/>
+<h2>一、优点与代价（先看这个再决定）</h2>
+<p><strong>优点</strong></p>
+<ul><li>彻底绕开所有苹果签名 / 公证 / Gatekeeper 拦截，一定能运行。</li><li>功能与正式版完全一样（桌宠、提醒、番茄钟、面板、托盘菜单都有）。</li></ul>
+<p><strong>代价</strong></p>
+<ul><li>需要在 Mac 上装 Node.js 环境（一次性的）。</li><li>第一次安装要下载 Electron（约 100–200 MB），需要网络，国内必须配镜像（文档已配好）。</li><li>以后想更新版本，要重新获取源码并 <code>npm install</code>（没有一键自动更新）。</li></ul>
+<blockquote><p>如果你不是开发者、只是想用软件：<strong>先用 dmg 那条路</strong>；实在装不上再走本指引。</p></blockquote>
+<hr/>
+<h2>二、操作步骤</h2>
+<h3>第 1 步：安装 Node.js（一次性）</h3>
+<ol><li>打开 https://nodejs.org ，点下载页面里的 <strong>LTS 版本</strong>（macOS 安装包 <code>.pkg</code>，选 Apple 芯片版本）。</li><li>双击安装包，一路「继续 / 同意 / 安装」即可。</li><li>装完后验证：打开「终端」，输入下面命令回车，能显示版本号就成功：</li></ol>
+<pre class="code"><code>node -v</code></pre>
+<h3>第 2 步：拿到 lolo 源码</h3>
+<p>二选一：</p>
+<ul><li><strong>方式 A（最省事，推荐）</strong>：让作者直接给你一个 <strong>lolo 源码压缩包（zip）</strong>，下载后解压到任意位置，比如「下载」文件夹里出现一个 <code>lolo</code> 文件夹。</li><li><strong>方式 B（推荐，源码仓库是公开的，直接克隆即可）</strong>：终端执行：</li></ul>
+<pre class="code"><code>git clone https://github.com/bobobizzz/lolo.git</code></pre>
+<blockquote><p>⚠️ <strong>别搞混这两个仓库</strong>：</p><p>- <code>bobobizzz/lolo</code> —— <strong>源码仓库</strong>（公开），跑源码就从这里克隆（上面这条），里面有 <code>main.js</code> / <code>src</code> / <code>assets</code> 等完整代码。</p><p>- <code>bobobizzz/lolo-pet</code> —— <strong>分发仓库</strong>（公开），只存放打包好的安装包和一个 README，<strong>里面没有源码</strong>，不能用来跑源码。你之前下载安装包用的链接（<code>.../lolo-pet/releases</code>）就是它。</p><p>若作者以后把源码仓库设为私有，方式 B 会失效（提示需要登录），此时改用<strong>方式 A</strong>（向作者要源码压缩包）。</p></blockquote>
+<blockquote><p>⚠️ 源码目录里<strong>必须</strong>包含这几样（完整 zip 或 clone 都会有）：<code>src/</code>、<code>assets/</code>（内含 26 个动画 png）、<code>config/default-config.json</code>、<code>main.js</code>、<code>preload.js</code>、<code>package.json</code>。</p></blockquote>
+<h3>第 3 步：配置国内镜像（关键！不配会卡住）</h3>
+<p>打开「终端」，<strong>逐行</strong>执行（每行回车）：</p>
+<pre class="code"><code>npm config set registry https://registry.npmmirror.com</code></pre>
+<pre class="code"><code>export ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/</code></pre>
+<blockquote><p>第二行的作用是让 Electron 本体从国内镜像下载，否则它会去 GitHub 拉，国内基本拉不动、会长时间卡住。</p><p>⚠️ 这条只对<strong>当前这个终端窗口</strong>有效，所以下面的安装步骤请<strong>在同一个终端窗口里继续</strong>，不要新开。</p></blockquote>
+<h3>第 4 步：安装运行依赖</h3>
+<p>在<strong>同一个终端窗口</strong>里，先进入源码目录（比如源码在「下载」文件夹里）：</p>
+<pre class="code"><code>cd ~/Downloads/lolo</code></pre>
+<blockquote><p>小技巧：输入 <code>cd </code>（cd 后面加一个空格）之后，直接把 <code>lolo</code> 文件夹<strong>拖进终端窗口</strong>，路径会自动填上，再回车。</p></blockquote>
+<p>然后安装：</p>
+<pre class="code"><code>npm install</code></pre>
+<p>这一步要下载 Electron，可能花几分钟，看到进度停下、重新出现命令提示符就完成了。</p>
+<h3>第 5 步：启动 lolo</h3>
+<pre class="code"><code>npm start</code></pre>
+<p>看到 lolo 小熊出现就成功了 🎉</p>
+<p><strong>以后每次想打开</strong>（依赖已装好，不用重来）：只需开个终端执行</p>
+<pre class="code"><code>cd ~/Downloads/lolo &amp;&amp; npm start</code></pre>
+<p>退出：在托盘图标上退出，或在终端按 <code>Ctrl + C</code>。</p>
+<hr/>
+<h2>三、可选：做一个「双击就能启动」的小图标</h2>
+<p>不想每次开终端敲命令的话，可以自己做一个双击启动器：</p>
+<ol><li>打开「文本编辑」（TextEdit），先按 <code>Command + Shift + T</code> 切换成<strong>纯文本</strong>模式。</li><li>粘贴下面两行（第一行路径换成你自己的源码目录）：</li></ol>
+<pre class="code"><code>cd ~/Downloads/lolo
+npm start</code></pre>
+<ol><li>保存，文件名填 <code>启动lolo.command</code>，位置选「桌面」。</li><li>在终端执行一次赋予权限：</li></ol>
+<pre class="code"><code>chmod +x ~/Desktop/启动lolo.command</code></pre>
+<ol><li>以后<strong>双击桌面上的「启动lolo」</strong> 就能直接打开软件（首次可能问你要不要打开，选「打开」）。</li></ol>
+<blockquote><p>这是你自己在本机创建的文件，不带「网上下载」标记，所以不会被 Gatekeeper 拦截。</p></blockquote>
+<hr/>
+<h2>四、常见问题</h2>
+<h3>首次打开弹「无法验证开发者」或「已损坏，应移至废纸篓」？</h3>
+<p>这是<strong>最正常、最常见</strong>的情况，几乎所有没做苹果公证的软件都会这样。一次放行就能永久解决：</p>
+<ol><li>弹窗里点「好」或「取消」关掉它。</li><li>打开 <strong>系统设置 → 隐私与安全性 → 安全性</strong>。</li><li>下方会出现一条「lolo」/「Electron」被拦截的提示，点它右侧的 <strong>「仍要打开」</strong>。</li><li>再双击桌面「启动lolo」，这次就能正常打开，以后也不再拦。</li></ol>
+<blockquote><p>嫌每次都烦、想一劳永逸：在终端执行 <code>sudo spctl --master-disable</code>，然后系统设置里把「允许以下来源」设为「任何来源」。用完后想恢复：<code>sudo spctl --master-enable</code>。</p></blockquote>
+<h3>连 Electron 本体都被拦（「未打开 Electron.app，因其包含恶意软件」）？</h3>
+<p>macOS 对 <strong>Electron 官方二进制</strong>（本身也未公证）一视同仁。处理步骤：</p>
+<ol><li><strong>恢复被删的 Electron</strong>（被移到废纸篓了就重装依赖）：</li></ol>
+<pre class="code"><code>   cd ~/lolo/lolo-main
+   rm -rf node_modules/electron
+   npm install electron@31</code></pre>
+<ol><li><strong>清除它的隔离标记</strong>：</li></ol>
+<pre class="code"><code>   xattr -cr ~/lolo/lolo-main/node_modules/electron/dist/Electron.app</code></pre>
+<ol><li><strong>临时关闭 Gatekeeper</strong>（一劳永逸，Electron 和其他未签名软件都不再被拦）：</li></ol>
+<pre class="code"><code>   sudo spctl --master-disable</code></pre>
+<p>→ 系统设置 → 隐私与安全性 → 允许以下来源 → 选「<strong>任何来源</strong>」</p>
+<ol><li>再启动：<code>npm start</code>（或双击桌面「启动lolo」）</li><li>想恢复安全设置：<code>sudo spctl --master-enable</code></li></ol>
+<blockquote><p>新版一键脚本已在装完依赖后<strong>自动执行第 2 步</strong>，且桌面启动器<strong>每次启动前也会自动清一次标记</strong>。</p></blockquote>
+<h3>其他常见问题</h3>
+<table><thead><tr><th>现象</th><th>原因 / 解决</th></tr></thead><tbody><tr><td><code>npm install</code> 卡住很久不动</td><td>第 3 步的 <code>export ELECTRON_MIRROR</code> 没配，或换了新终端窗口。回到第 3 步重配，<strong>在同一窗口</strong>重新 <code>npm install</code>。</td></tr><tr><td>提示 Electron 下载失败 / 404</td><td>同上，确认镜像已设置；或换个网络环境重试。</td></tr><tr><td><code>cd</code> 后提示 no such file</td><td>路径不对。用「先输入 <code>cd </code> 再把文件夹拖进终端」的方式填路径最保险。</td></tr><tr><td>启动时报错提到某个依赖缺失</td><td>回到第 4 步重新执行一次 <code>npm install</code>。</td></tr><tr><td>宠物不动 / 不显示动画</td><td>源码缺 <code>assets/videos</code> 里的动画素材，请重新获取一份<strong>完整</strong>的源码压缩包。</td></tr><tr><td>想更新到新版本</td><td>重新问作者要新版源码 zip（或 <code>git pull</code>），然后 <code>npm install &amp;&amp; npm start</code>。</td></tr></tbody></table>
+<hr/>
+<h2>五、给软件作者的备注（运行时说明）</h2>
+<ul><li>运行时真正在用的只有两个包：<strong><code>electron</code></strong>（在 devDependencies）和 <strong><code>electron-updater</code></strong>（自动更新用）。</li><li><code>electron-builder</code> / <code>javascript-obfuscator</code> 是<strong>打包 / 混淆</strong>用的，跑源码不需要，但 <code>npm install</code> 会一并装上（体积较大）。</li><li>Mac 上必须在<strong>本机</strong>安装 Mac 版 Electron 二进制，<strong>不能</strong>把 Windows 的 <code>node_modules</code> 拷过来用（平台不兼容）。</li><li>动画素材（26 个 APNG）与默认配置均已纳入版本控制，clone 或完整 zip 都不会缺。</li></ul>
+</div>
+<div class="footer">lolo 桌宠 · bobobizzz · 图文教程</div>
+</div>
+</body>
+</html>
