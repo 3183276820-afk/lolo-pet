@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>lolo 桌宠 · 下载与安装</title>
+<style>
+  :root{
+    --bg:#fbf7f2; --card:#ffffff; --ink:#3a2f28; --sub:#8a7a6e;
+    --brand:#b5793f; --brand-d:#8a5a2b; --accent:#f3e6d8; --ok:#2e9b6b;
+    --line:#ece2d6; --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6; padding:18px 14px 48px;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:680px;margin:0 auto}
+  header{text-align:center;padding:26px 10px 18px}
+  .logo{font-size:46px;line-height:1}
+  h1{font-size:24px;margin-top:10px;letter-spacing:.5px}
+  .lead{color:var(--sub);font-size:14px;margin-top:8px}
+  .notice{
+    background:var(--accent); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px; font-size:13.5px; color:var(--brand-d); margin:14px 0 22px;
+  }
+  .notice b{color:var(--brand-d)}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 16px; margin-bottom:18px; box-shadow:0 2px 10px rgba(120,80,40,.05);
+  }
+  .card h2{font-size:18px;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .card .tag{font-size:12px;color:var(--sub);font-weight:400;margin-bottom:14px}
+  .row{
+    display:flex;align-items:center;gap:10px;margin:10px 0;border:1px solid var(--line);
+    border-radius:12px;padding:6px 6px 6px 12px;background:#fff;
+  }
+  .row .label{flex:1;min-width:0}
+  .row .label .t{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row .label .u{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .btn{
+    flex:none;border:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600;
+    cursor:pointer;transition:.15s;white-space:nowrap;text-decoration:none;display:inline-block;
+  }
+  .btn.open{background:var(--brand);color:#fff}
+  .btn.open:hover{background:var(--brand-d)}
+  .btn.copy{background:var(--accent);color:var(--brand-d)}
+  .btn.copy:hover{background:#ecd9c4}
+  .cmd{
+    background:#2c241e;color:#f6efe6;border-radius:12px;padding:14px 14px;font-family:ui-monospace,
+    SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;word-break:break-all;position:relative;margin:12px 0 6px;
+  }
+  .cmd .c{color:#ffb87a}
+  .cmd .copy-mini{
+    position:absolute;top:8px;right:8px;background:rgba(255,255,255,.12);border:none;color:#fff;
+    border-radius:8px;padding:4px 9px;font-size:11px;cursor:pointer;
+  }
+  .cmd .copy-mini:hover{background:rgba(255,255,255,.22)}
+  .tip{font-size:12.5px;color:var(--sub);background:var(--accent);border-radius:10px;padding:10px 12px;margin-top:12px}
+  .tip b{color:var(--brand-d)}
+  .about{font-size:12.5px;color:var(--sub);line-height:1.7;margin-top:6px}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:24px}
+  .pill{display:inline-block;background:var(--accent);color:var(--brand-d);border-radius:999px;
+    padding:2px 10px;font-size:12px;margin-left:6px}
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+    background:#3a2f28;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;
+    transition:.25s;pointer-events:none;z-index:99;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">🐻</div>
+    <h1>lolo 桌宠</h1>
+    <p class="lead">会陪在你桌面上的小熊 · 提醒 / 番茄钟 / 托盘菜单</p>
+  </header>
+
+  <div class="notice">
+    🌐 <b>国内打不开 github？</b> 本页所有下载与文档都已换成「反代直链」，点开即用，无需翻墙。
+    反代会代理<b>文件</b>类链接（下载 / 文档），直接点下方按钮即可。
+  </div>
+
+  <!-- Windows -->
+  <section class="card">
+    <h2>💻 Windows 用户 <span class="pill">最简单</span></h2>
+    <div class="tag">下载 .exe 安装包，双击按提示安装即可</div>
+
+    <div class="row">
+      <div class="label">
+        <div class="t">前往 Releases 下载</div>
+        <div class="u">https://github.com/bobobizzz/lolo-pet/releases</div>
+      </div>
+      <a class="btn open" href="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases" target="_blank" rel="noopener">打开</a>
+      <button class="btn copy" data-copy="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases">复制</button>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="t">安装版（推荐）直链</div>
+        <div class="u">lolo-win-setup.exe</div>
+      </div>
+      <a class="btn open" href="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases/latest/download/lolo-win-setup.exe" target="_blank" rel="noopener">下载</a>
+      <button class="btn copy" data-copy="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases/latest/download/lolo-win-setup.exe">复制</button>
+    </div>
+
+    <div class="row">
+      <div class="label">
+        <div class="t">便携版（免安装）直链</div>
+        <div class="u">lolo-win-portable.exe</div>
+      </div>
+      <a class="btn open" href="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases/latest/download/lolo-win-portable.exe" target="_blank" rel="noopener">下载</a>
+      <button class="btn copy" data-copy="https://ghfast.top/https://github.com/bobobizzz/lolo-pet/releases/latest/download/lolo-win-portable.exe">复制</button>
+    </div>
+  </section>
+
+  <!-- Mac -->
+  <section class="card">
+    <h2>🍎 Mac 用户 <span class="pill">源码运行</span></h2>
+    <div class="tag">macOS 会拦截未公证的软件，故不提供安装包，改用「源码运行」</div>
+
+    <div style="font-size:13.5px;margin:4px 0 2px">第 1 步 · 打开「终端」（Command+空格 → 搜「终端」→ 回车），粘贴下面一行并回车：</div>
+    <div class="cmd">
+      <span class="c">$</span> curl -sL https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo/main/install-mac.sh | bash
+      <button class="copy-mini" data-copy="curl -sL https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo/main/install-mac.sh | bash">复制</button>
+    </div>
+    <div style="font-size:12.5px;color:var(--sub)">脚本会自动下载源码、装依赖、生成桌面「启动lolo」图标并直接启动。</div>
+
+    <div class="row">
+      <div class="label">
+        <div class="t">📘 完整图文教程</div>
+        <div class="u">Mac-源码运行指引.md（反代直读）</div>
+      </div>
+      <a class="btn open" href="https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo-pet/main/Mac-源码运行指引.md" target="_blank" rel="noopener">查看</a>
+      <button class="btn copy" data-copy="https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo-pet/main/Mac-源码运行指引.md">复制</button>
+    </div>
+
+    <div class="tip">
+      ⚠️ <b>首次打开 macOS 会弹「无法验证开发者」</b>，这是正常现象，不是病毒。
+      按脚本引导在「系统设置 → 隐私与安全性 → 仍要打开」放行一次即可，之后双击桌面「启动lolo」就正常，不再被拦。
+    </div>
+  </section>
+
+  <!-- 关于仓库 -->
+  <section class="card">
+    <h2>📦 关于这两个仓库</h2>
+    <div class="about">
+      • <b>bobobizzz/lolo-pet</b>（本页所在）→ <b>分发仓库</b>，只放打包好的安装包和说明，不含源码。<br/>
+      • <b>bobobizzz/lolo</b> → <b>源码仓库</b>，Mac 用户跑源码、或想自己研究代码时从这里获取。
+    </div>
+  </section>
+
+  <footer>
+    装不上或有疑问，先参考上面的 Mac 教程，或联系作者 🙌
+  </footer>
+</div>
+
+<div class="toast" id="toast">已复制 ✅</div>
+
+<script>
+  var toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent = msg || '已复制 ✅';
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){ toast.classList.remove('show'); }, 1400);
+  }
+  function copyText(t){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(t);
+    }
+    return new Promise(function(res, rej){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta); res();
+      }catch(e){ rej(e); }
+    });
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      copyText(btn.getAttribute('data-copy')).then(function(){ showToast(); }).catch(function(){
+        showToast('复制失败，请手动长按选择');
+      });
+    });
+  });
+</script>
+</body>
+</html>
