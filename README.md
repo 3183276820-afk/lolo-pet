@@ -26,14 +26,14 @@ macOS 会拦截未公证的软件，Mac 不提供直接安装包，请改用**�
    ```
 
 2. 📘 完整图文教程（反代直读，好打开）：
-   https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo-pet/main/Mac-源码运行指引.md
-   （本仓库 Release 附件里也有 `Mac-tutorial.md` 可下载）
+   https://lolo-share.app.workbuddy.host/Mac-tutorial.html
+   （本仓库里也有 `Mac-tutorial.html`；Releases 附件里有 `Mac-tutorial.md` 文本版）
 
 > 首次打开 macOS 会弹「无法验证开发者」，属正常现象，按脚本引导放行一次即可，以后不再拦。
 
 ## 文档直读（反代，手机电脑都能看）
 - 本仓库 README：https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo-pet/main/README.md
-- Mac 源码运行教程：https://ghfast.top/https://raw.githubusercontent.com/bobobizzz/lolo-pet/main/Mac-源码运行指引.md
+- Mac 源码运行教程：https://lolo-share.app.workbuddy.host/Mac-tutorial.html
 
 ## 关于这两个仓库
 - `bobobizzz/lolo-pet`（本仓库）—— **分发仓库**，只放打包好的安装包和说明，**不含源码**。
